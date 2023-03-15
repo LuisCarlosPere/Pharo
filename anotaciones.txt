@@ -1,0 +1,99 @@
++shift + Enter -> Spotter:   Ayuda a buscar clases, metodos o recursos.
+
++'Hello World' asMorph openInWindow -> Abre una ventana con el mensaje Hello World
+-asMorph -> Se usa para convertir a un objeto grafico.
+-openInWindow -> Se usa para abrir una ventana.
+
++vid 17 -> W1.Redo7.EN : Looking a commit history and changes with Iceberg.
+
++No confundir () parentesis con [] corchetes. Los parentesis se usan para cambiar el orden de ejecucion. Los corchetes se usan para encapsular código.
+
+****Cascada *****
++Se usa para mandar multiples mensajes a un mismo objeto.
+    Transcript cr.
+    Transcript show: 1.
+    Transcript show: 2.
+
+    Transcript 
+        cr;
+        show: 1;
+        show: 2
+
+****Orden de ejecucion*****
++() -> Unary -> Binary -> Keywords
++En caso de ser del mismo nivel se ejecutan de izquierda a derecha
+
+*******Array*********
+El indice de Arreglos en pharo inician en 1 y no en 0 como en otros lenguajes
+#(...)  Crea un arreglo
+#(...) at: put:     Cambia un elemento del Array.
+
+
+******Loops*****
++4 timesRepeat: [self doSomething]
++0 to: 100 do: [:i | ...]
+0 to: 100 by: 3 do:[:i | ...]
+aCollection do: [:each | ...]
+[...] whileTrue
+[...] whileTrue: [...]
+
+
+*******Iteradores ********
++do: (iterate)
++collect: (iterate and collect results)
++select: (select matching elements)
++reject: (reject matching elements)
++detect: (get first element matching)
++detect: ifNone: (get first element matching or a default value)
++includes: (test inclusion)
+
+*****Bloques******
++ []  -> Se usa para definir un bloque.
++ Por naturaleza el bloque congela el código dentro de el.
++ Un bloque debe tener 2 o 3 argumentos como máximo.
++ [] value  -> Con esto se ejecuta el código dentro del bloque.
++ [:x | x + 2] value: 5 -> Esto es un bloque con argumento.
++ | add2 |
+  add2:= [:x | x + 2].
+  add2 value: 5 ->7
+  add2 value: 33 -> 35
+
++[:x:y| x + y] value:5 value:2 -> Es un bloque con dos argumentos.
++[:index | |args| ...] -> Bloque con variables temporales.
++ ^ -> Se usa para retornar.
+
+
+******Booleans and Conditionals********
++ false & (1 error:'crazy') -> Retorna error
++ false and: [1 error: 'crazy'] -> No retorna error.
++ Weather isRainning
+    ifTrue:[]
+    ifFakse:[]
+
++ ifEmpty: ['As classified']
++ ifNotEmpty: [:aList | aList at: index] -> Cacha el argumento que se encontro.
+
+
+
+*******INSTRUCCIONES PARA CARGAR IMAGEN TINYPAYROLL******
+1.- Ir a github al repositorio panalcloud. Ir a TinyPayroll-docs.
+2.- Instalar Postgres.
+3.- Configurar las variables de entorno.
+    -Cambiar la variable Password -> Depende de la contraseña de Postgres
+    -Cambiar la variable DB_User -> Poner Postgres.
+4.- Reiniciar el CPU.
+5.- Ir a github -> Settings -> Developer settings -> Personal acces tokens-> tokens (classics) -> Generate new -> Generar nuevo token clasico
+    ->Asignas cualquier nombre -> Que no expire -> Seleccionas la opcion repo -> Generar token -> Copiar token.
+6.- Crear imagen en pharo -> poner nombre ph10Tinypayroll -> clic en barra de herramientas <pharo> -> Settings -> En el buscador poner credential.
+    ->Current list of credential Presionar edit -> Añadir token datos de github.
+7.- Abrir playground -> Copiar: 
+Metacello new
+      baseline:'TinyPayroll';
+      repository: 'github://panalcloud/TinyPayroll:main/';
+      load: 'default'
+    -> Do it.
+8.- Copiar en playground: TPDBSetup install -> Do it.
+9.- Copiar en playground: TPDemoData install -> Do it.
+10.- En el package TinyPayroll-Components -> En Application -> En la clase TPApplicationRootComponent -> class side -> register -> Poner en serverPath put '/app'
+11.- playground -> correr linea: TPApplicationRootComponent register.
+12.- Ir a http://localhost:8080/app
