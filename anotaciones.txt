@@ -1,10 +1,18 @@
 +shift + Enter -> Spotter:   Ayuda a buscar clases, metodos o recursos.
 
++ Browse -> Finder  -> Sirve para encontrar cualquier metodo en pharo.
+Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
+
++ ctrl + i -> Abre el inspector.
+
++ tools -> System Browser -> Para ver los paquetes, las clases y los metodos.
+
 +'Hello World' asMorph openInWindow -> Abre una ventana con el mensaje Hello World
 -asMorph -> Se usa para convertir a un objeto grafico.
 -openInWindow -> Se usa para abrir una ventana.
 
 +vid 17 -> W1.Redo7.EN : Looking a commit history and changes with Iceberg.
++vid 28 -> W2.LiveA.EN : Finding methods with the Finder.
 
 +No confundir () parentesis con [] corchetes. Los parentesis se usan para cambiar el orden de ejecucion. Los corchetes se usan para encapsular código.
 
@@ -51,6 +59,8 @@ aCollection do: [:each | ...]
 + []  -> Se usa para definir un bloque.
 + Por naturaleza el bloque congela el código dentro de el.
 + Un bloque debe tener 2 o 3 argumentos como máximo.
++ Se usa para encapsular código.
++ Se usa cuando el código dentro se va a ejecutar multiples veces.
 + [] value  -> Con esto se ejecuta el código dentro del bloque.
 + [:x | x + 2] value: 5 -> Esto es un bloque con argumento.
 + | add2 |
@@ -72,8 +82,16 @@ aCollection do: [:each | ...]
 
 + ifEmpty: ['As classified']
 + ifNotEmpty: [:aList | aList at: index] -> Cacha el argumento que se encontro.
++ isNill
 
-
+******EN CASO DE NO PODER HACER UN PUSH AL REPOSITORIO REMOTO ********
+1.- Se crea el repositorio en github.
+2.- Copiar el link del repositorio para hacer git clone en la carpeta de Iceberg.
+    -Para entrar a la carpeta de Iceberg: Este equipo/documentos/pharo/images/elNombreDelProyecto/pharo-local/Iceberg
+3.- Ir a pharo -> Abrir iceberg -> Añadir repositorio -> Import from existing clone(Segunda opcion despues de New repository) 
+    -> Seleccionar la carpeta creada con git clone.
+4.- En pharo hacer los commits que se desean agregar.
+5.- En git bash hacer push desde la carpeta donde se hizo el git clone.
 
 *******INSTRUCCIONES PARA CARGAR IMAGEN TINYPAYROLL******
 1.- Ir a github al repositorio panalcloud. Ir a TinyPayroll-docs.
@@ -97,3 +115,46 @@ Metacello new
 10.- En el package TinyPayroll-Components -> En Application -> En la clase TPApplicationRootComponent -> class side -> register -> Poner en serverPath put '/app'
 11.- playground -> correr linea: TPApplicationRootComponent register.
 12.- Ir a http://localhost:8080/app
+
+
+*******Challenges ***********
++ Challenge 0 week 1
+Using the Zinc HTTP library available by default in Pharo, get the pharo logo
+from http://pharo.org/files/pharo.png. Convert it into a morph and open it in
+Pharo. You should obtain something similar than the picture below.
+
+Hints:
+• The class ZnEasy offers several handy messages to ease HTTP requests.
+• The message asMorph converts low level graphical elements (form)
+into Morph (graphical objects).
+• The message openInWorld open graphical objects.
+
+Solution
+(ZnEasy getPng: 'http://pharo.org/files/pharo.png') asMorph
+openInWorld
+
+
+
++ Challenge 1 week 2.
+Using the Zinc HTTP library, get a photo from an email address through gravatar http://www.gravatar.com/avatar/. Convert it into a morph and open it
+in Pharo. Using stephane.ducasse@inria.fr so that you are sure to get a .jpg.
+The result should look like situation shown in the figure below.
+
+Hints:
+• The path to the photo associated to an email is composed as follows:
+http://www.gravatar.com/avatar/(MD5 email-based hex).jpg
+• To build an MD5 cypher from the email use MD5 hashMessage: .Pay
+attention that you should convert its result in hexadecimal.
+• Do not forget to trim blanks around the email and use it in lower case.
+• asMorph convert pictures into Morphs.
+• Message openInHand is fun.
+
+Solution
+| email url |
+email := 'stephane.ducasse@inria.fr'.
+url := 'http://www.gravatar.com/avatar/', (MD5 hashMessage: email
+trimBoth asLowercase) hex, '.jpg'.
+imageMorph := (ZnEasy getJpeg: url) asMorph openInHand.
+
+Para cerrar lla imagen abierta, ejecuta :
+World removeMorph: imageMorph
