@@ -13,8 +13,13 @@ Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
 
 +vid 17 -> W1.Redo7.EN : Looking a commit history and changes with Iceberg.
 +vid 28 -> W2.LiveA.EN : Finding methods with the Finder.
++vid 36 -> W3.S4.EN : A simple HTTP Application
 
 +No confundir () parentesis con [] corchetes. Los parentesis se usan para cambiar el orden de ejecucion. Los corchetes se usan para encapsular código.
+
+*****Matematicas****
++abs    -> Retorna el valor absoluto.
++odd    -> 
 
 ****Cascada *****
 +Se usa para mandar multiples mensajes a un mismo objeto.
@@ -36,6 +41,44 @@ El indice de Arreglos en pharo inician en 1 y no en 0 como en otros lenguajes
 #(...)  Crea un arreglo
 #(...) at: put:     Cambia un elemento del Array.
 
+
+*******Collecciones*******
++OrderedCollection -> Son dinamicos. Crecen conforme se le agregan datos.
++Array -> Son de tamaño definido. Se puede acceder a los elementos mediante un indice.
++Set -> No acepta duplicados.
++Dictionary -> Tiene una llave y un valor.
++Ejemplos:
+    Array new: 4
+    >#(nil nil nil nil)
+
+    Array new: 2
+    >#(nil nil)
+
++Metodos de los collections:
+    withAll:    -> Inicializa una colleccion con ciertos valores.
+        OrderedCollection new: 5 withAll: 'a'.
+        > an OrderedCollection('a' 'a' 'a' 'a' 'a')
+    
+    do: ->Recorre una colección.
+        #('Calvin' 'hates' 'Suize')
+        do: [:each | Transcript show: each; cr]
+
+    at: -> Accede al indice que se indica.
+    at: put: -> Cambia el valor del indice indicado por el valor introducido en put.
+    ad:     -> Agregar un elemento a la coleccion.
+    addFirst:       -> Agrega al inicio el elemento.
+    asOrderedColection      -> Convertir a OrderedCollection
+    asSet       -> Convertir a Set.
+    asArray     -> Convertir a Array
+
+    {#January -> 31.
+     #February -> 28.
+     #March -> 31} asDictionary     -> Es igual a hacer un diccionario
+    
+    at: #Key    ->Para acceder a un valor de un dictionary se entra directo con el valor del Key.
+    at: #Key ifAbsent: [argument]   ->En caso de no encontrar la Key la agrega.
+    keysAndValuesDo: [:k :v | ....]     -> Para recorrer el diccionario con sus keys y values.
+    collect: []     -> Aplica el bloque para cada elemento y retorna una coleccion con los resultados.
 
 ******Loops*****
 +4 timesRepeat: [self doSomething]
@@ -83,6 +126,14 @@ aCollection do: [:each | ...]
 + ifEmpty: ['As classified']
 + ifNotEmpty: [:aList | aList at: index] -> Cacha el argumento que se encontro.
 + isNill
+
+
+*******Variables******
++Variables locales empiezan con minuscula convencion
++Variables compartidas empiezan con mayusculas por convencion
++self -> Se refiere al receptor del mensaje.
++super -> Se refiere al receptor pero el metodo busca en la clase padre de la clase que esta definiendo el metodo
++thisContext -> Se refiere al objeto que reifica la pila de llamadas del programa
 
 ******EN CASO DE NO PODER HACER UN PUSH AL REPOSITORIO REMOTO ********
 1.- Se crea el repositorio en github.
