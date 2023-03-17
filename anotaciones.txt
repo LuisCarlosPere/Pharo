@@ -1,5 +1,9 @@
 +shift + Enter -> Spotter:   Ayuda a buscar clases, metodos o recursos.
 
++ctrl + shift + f   -> Formatear el codigo.
+
++CTRL + I   -> Inspect it
+
 + Browse -> Finder  -> Sirve para encontrar cualquier metodo en pharo.
 Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
 
@@ -19,7 +23,8 @@ Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
 
 *****Matematicas****
 +abs    -> Retorna el valor absoluto.
-+odd    -> 
++odd    -> Retorna los numeros impares
++atRandom   -> Retorna un valor al azar.
 
 ****Cascada *****
 +Se usa para mandar multiples mensajes a un mismo objeto.
@@ -94,9 +99,84 @@ aCollection do: [:each | ...]
 +collect: (iterate and collect results)
 +select: (select matching elements)
 +reject: (reject matching elements)
-+detect: (get first element matching)
++detect: (get first element matching)       -> Encuentra el primer elemento que hace match con lo especificado.
 +detect: ifNone: (get first element matching or a default value)
 +includes: (test inclusion)
++anySatisfy: (tests if one object is satisfying the criteria)
++allSatisfy: (test if all objects are satisfying the criteria)
++reverseDo: (Do an action on the collection starting from the end)
++doWithIndex: (do an action with the element and its index)
++pairsDo: (evaluate aBlock with my elements taken two at a time.)
++with:do: (requires two structures of the same length).
+    #(1 2 3)
+        with: #(10 20 30)
+        do: [:x :y | Transcript show: (y * x); cr].
+        > 10 40  90
+    
++do:separatedBy:
+    String streamContents: [:s |
+        #('a' 'b' 'c')
+            do: [:each | s<<<each]
+            separatedBy: [s<<',]
+    ]
+    >'a,b,c'
+
++groupedBy: (To group elements according to a grouping function)
+    #(1 2 3 4 5 6 7) groupedBy: #even
+    >a PluggableDictionary(false->#(1 3 5 7) true->#(2 4 6))
+
++flatCollect: (Join nesting collections)
+    #(#(1 2) #(3) #(4) #(5 6)) collect:[:each | each]
+    > #(#(1 2) #(3) #(4) #(5 6))
+
+    #(#(1 2) #(3) #(4) #(5 6)) flatCollect: [:each | each]
+    >#(1 2 3 4 5 6)
+
++Para buscar mas hay que ir a la clase SequenceableCollection
+
+
+*******Streams********
++stream:= #($a $b $c $d $e $f) readStream     -> Crea un stream.
++stream next    -> Recorre el stream de uno en uno.
++stream upTo:   -> Retorno el stream desde la posicion actual hasta el elemento indicado.
++stream position    -> Retorna la posicion actual del stream.
++stream upToEnd     -> Retorna el stream desde la posicion actual hasta el final
+    | stream |
+    stream := #($a $b $c $d $e $f) readStream.
+    "stream next."
+    stream upTo: $d.
+    stream position.
+    stream upToEnd 
+
++stream:= (Array new: 6) writeStream    -> Crea un nuevo stream con un array de 6 posiciones.
++stream nextPut: ->     Agrega un argumento al stream.
++stream contents    -> Muestra el contenido del stream.
++stream nextPutAll:     -> Agrega todos los argumentos al stream
+    | stream |
+    stream := (Array new: 6) writeStream.
+    stream nextPut:1.
+    stream contents.
+    stream nextPutAll: #(4 8 2 6 7).
+    stream contents.
+
++Para crear un stream con un archivo que aun no existe.
+    | stream |
+    stream := 'hello.txt' asFileReference writeStream.
+    stream nextPutAll: 'Hello´Pharo!'.
+    stream close.
+
++Para leer el stream del archivo creado.
+    stream := 'hello.txt' asFileReference readStream.
+    stream next.
+    stream upToEnd
+
++Para crear un stream con OrderedCollection
+    | stream |
+    stream := OrderedCollection new writeStream.
+    stream nextPut: 1.
+    stream contents.
+    IS EQUIVALENT TO
+    OrderedCollection  streamContents:  [ :stream | stream nextPut: 1 ]
 
 *****Bloques******
 + []  -> Se usa para definir un bloque.
