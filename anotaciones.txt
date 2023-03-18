@@ -2,7 +2,7 @@
 
 +ctrl + shift + f   -> Formatear el codigo.
 
-+CTRL + I   -> Inspect it
++CTRL + i   -> Inspect it
 
 + Browse -> Finder  -> Sirve para encontrar cualquier metodo en pharo.
 Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
@@ -10,6 +10,10 @@ Dar clic en la pestaña de Browse despues de buscar un metodo para ver la clase
 + ctrl + i -> Abre el inspector.
 
 + tools -> System Browser -> Para ver los paquetes, las clases y los metodos.
+
++self halt -> Se usa para debuggear hasta cierto punto.
+
++self haltIf: (...) -> Se usa para debuggear en caso de que se cumpla lo que hay entre parentesis.
 
 +'Hello World' asMorph openInWindow -> Abre una ventana con el mensaje Hello World
 -asMorph -> Se usa para convertir a un objeto grafico.
@@ -214,6 +218,69 @@ aCollection do: [:each | ...]
 +self -> Se refiere al receptor del mensaje.
 +super -> Se refiere al receptor pero el metodo busca en la clase padre de la clase que esta definiendo el metodo
 +thisContext -> Se refiere al objeto que reifica la pila de llamadas del programa
+
+
+*******Herencia ********
++Una clase tiene solo una superclase.
++Una clase eventualmente hereda de Object.
++self -> Hace referencia al objeto de la instancia.
+    Ejemplo:
+        Class A
+            methods: foo -> ^ 10
+                     bar -> ^ self foo
+        
+        Class B
+            methods: foo -> ^ 50
+    
+    A new foo
+    > 10
+    B new foo
+    > 50
+    A new bar 
+    > 10
+    B new bar
+    > 50
+
++super      -> Busca el metodo en la superclase
+    Ejemplo:
+    Class A 
+        methods: foo -> ^ 10
+                 bar -> ^ self foo
+
+    Class B 
+        methods: bar -> ^ super bar + self foo
+
+    Class C 
+        methods: foo -> ^ 50
+    
+    A new bar
+    > 10
+    B new bar 
+    > 20
+    C new bar
+    > 100
+
++videos 49 y 50
+
+
+****** Clases****
++Parsing Lines:
+    ! -> Se usa para titulo
+    - -> Se usa para un list item
+    -- -> Se usa para un subitem
+
+
+******Seaside *******
++Mas documentacion video 55-Seaside: An Innovate Web Application Framework W4-S8-VoiceOverEn-
++Crear componentes html:
+    html div id: 'list';
+        with: [html span class: 'item'; with: 'item1'.
+               htnl span class: 'item'; with: 'item2']
+    Es equivalente a:
+    <div id = "list">
+        <span class = "item">item 1 </span>
+        <span class = "item">item 2 </span>
+    </div>
 
 ******EN CASO DE NO PODER HACER UN PUSH AL REPOSITORIO REMOTO ********
 1.- Se crea el repositorio en github.
