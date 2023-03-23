@@ -1,0 +1,16 @@
+Conceptos:
++assets(activos)
++liabilities(prestamos de la compañia)
++equity(propiedades del negocio)
++ledger (libro mayor)
++Journals(diarios)
++credit(Representa un balance positivo en la cuenta)
++debit(Representa un balance negativo en la cuenta)
+
+
+Assets(activos) Se compone de dos fuentes: propiedades del negocio(equity) y de los prestamos de la compañia(liabilities).
+
+Assets = liabilities + equity.
+
+Para las cuentas de assets(ctivos), el debito representa un balance positivo y el credito un balance negativo.
+Para las cuentas de liabilities y equity, el debito representa un balance negativo y el credito un balance positivo

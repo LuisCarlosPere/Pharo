@@ -1,3 +1,7 @@
++TPDBSetup install  -> Reinstala la base de datos
+
++windows + shift + s -> Para recortar imagen de pantalla
+
 +shift + Enter -> Spotter:   Ayuda a buscar clases, metodos o recursos.
 
 +ctrl + shift + f   -> Formatear el codigo.
@@ -281,6 +285,30 @@ aCollection do: [:each | ...]
         <span class = "item">item 1 </span>
         <span class = "item">item 2 </span>
     </div>
+
+
+******CREAR UN NUEVO PROYECTO CON GIT ********
++Vid 59 Git: New project creation W4.
+1.- Se crea un nuevo repositorio en git.
+2.- En pharo ir a iceberg -> Add new repository -> Clone from github.com -> Seleccionar HTTPS como protocolo.
+3.- Doble clic en el repositorio nuevo -> Dar clic en repair -> Create project meta-data.
+4.- En la pestaña de code directory hay que agregar uno con nombre src.
+5.- Hacer commit.
+6.- Agregar los paquetes en Add package.
+7.- Hacer commit.
+8.- Hacer push.
+
+
+****AGREGAR UN REPOSITORIO REMOTO A UN PROYECTO EXISTENTE******
+1.-iceberg -> doble clic sobre el repositorio local -> clic sobre repositorio(parte superior derecha) -> Add remote
+
+
+******CARGAR UN REPOSITORIO CON METACELLO de un repositorio de github*****
+
+Metacello new 
+    baseline: 'Nombre de paquete'
+    repository: 'url del repositorio de github'
+    load: 'default'.
 
 ******EN CASO DE NO PODER HACER UN PUSH AL REPOSITORIO REMOTO ********
 1.- Se crea el repositorio en github.
