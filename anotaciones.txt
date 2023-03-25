@@ -1,4 +1,16 @@
-+TPDBSetup install  -> Reinstala la base de datos
++TPDBSetup install  -> Reinstala la base de datos. Se usa cuando se crean nuevas tablas.
++TPDatabase resetCurrent -> Cuando se borran registros desde Postgres.
++TPDataError -> En esta clase se encuentran los errores de mensajes.
+    ^ TPDataError insufficientDays032 signal  -> Esta línea se usa para retornar los errores de mensajes. el signal es lo que lo hace funcionar.
++TPDemoData install -> Crea una base de datos de prueba
+
++http://localhost:8080/bootstrap4/browser -> bootstrap4 -> Se usa para ver la libreria que se esta usando
+
++Con la siguiente sentencia se realiza la busqueda del ultimo registro en una tabla.
+    objectAccount := (((SimpleQuery read: TPVacationLedgerAccount)
+		                  limit: 1;
+		                  orderBy: [ :entry | entry ledgerAccountID descending ]) 
+		                 executeIn: TPDatabase current dbSession) first.
 
 +windows + shift + s -> Para recortar imagen de pantalla
 
