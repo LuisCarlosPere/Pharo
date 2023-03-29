@@ -4,13 +4,40 @@
     ^ TPDataError insufficientDays032 signal  -> Esta línea se usa para retornar los errores de mensajes. el signal es lo que lo hace funcionar.
 +TPDemoData install -> Crea una base de datos de prueba
 
-+http://localhost:8080/bootstrap4/browser -> bootstrap4 -> Se usa para ver la libreria que se esta usando
++http://localhost:8080/bootstrap4/browser -> bootstrap4 -> Se usa para ver la libreria que se esta usando.
+
++La comparacion de desigual se hace ponineod ~=
+
++La negacion se usa poniendo not antes de lo que se desea negar o mandandole not al objeto que recive.
+    a := true.
+    b := a not. "b es false"
+
+
++Con el siguiente ejemplo se saca la fecha en numeros enteros.
+date2 := Date today.
+	
+	timeStamp2 := date2 asZTimestamp.
+	
+	day2 := timeStamp2 dayOfMonth.
+	
+	month2 := timeStamp2 month.
+	
+	year2 := timeStamp2 year.
+
+    
 
 +Con la siguiente sentencia se realiza la busqueda del ultimo registro en una tabla.
+    **PARA TRAER EL OBJETO
     objectAccount := (((SimpleQuery read: TPVacationLedgerAccount)
 		                  limit: 1;
 		                  orderBy: [ :entry | entry ledgerAccountID descending ]) 
 		                 executeIn: TPDatabase current dbSession) first.
+
+    **Para traer solo un registro
+    "objectAccount := ((SimpleQuery read: TPVacationLedgerAccount)
+		                  limit: 1;
+		                  orderBy: [ :entry | entry vacationLedgerAccountID descending ]) 
+		                 executeIn: TPDatabase current dbSession."
 
 +windows + shift + s -> Para recortar imagen de pantalla
 
