@@ -1,3 +1,11 @@
++Para entrar a los estilos de lo componentes: TinyPayroll-Components -> Application -> TPFileLibrary
+
++Para ver modelos de inputs     -> bootstrap4-Core -> subpaquete Canvas.
+
++Para debuggear en Pharo.
+    (WAAdmin defaultDispatcher handlerAt: 'app')
+exceptionHandler: WADebugErrorHandler.
+
 +TPDBSetup install  -> Reinstala la base de datos. Se usa cuando se crean nuevas tablas.
 +TPDatabase resetCurrent -> Cuando se borran registros desde Postgres.
 +TPDataError -> En esta clase se encuentran los errores de mensajes.
@@ -5,6 +13,15 @@
 +TPDemoData install -> Crea una base de datos de prueba
 
 +http://localhost:8080/bootstrap4/browser -> bootstrap4 -> Se usa para ver la libreria que se esta usando.
+
++Para concatenar numeros.
+    | numero1 numero2 resultado |
+    numero1 := 123.
+    numero2 := 456.
+    resultado := numero1 asString , numero2 asString.
+    Transcript show: resultado.
+
++ (100 to: 999) atRandom    -> Genera un numero aleatorio entre 100 y 999
 
 +La comparacion de desigual se hace ponineod ~=
 
@@ -24,7 +41,9 @@ date2 := Date today.
 	
 	year2 := timeStamp2 year.
 
-    
++Para hacer un ifTrue con dos condiciones.
+    month1 = month2 & (day1 >= day2)
+						ifTrue:[]
 
 +Con la siguiente sentencia se realiza la busqueda del ultimo registro en una tabla.
     **PARA TRAER EL OBJETO
@@ -38,6 +57,16 @@ date2 := Date today.
 		                  limit: 1;
 		                  orderBy: [ :entry | entry vacationLedgerAccountID descending ]) 
 		                 executeIn: TPDatabase current dbSession."
+
++Para hacer busquedas con dos parametros.
+	empl := TPVacationEmployeeLedgerAccount readOneWhere: [ :entry | 
+		        entry employee = dataObject employee AND: [ 
+			        entry type = 'liability' ] ].
+
++Para hacer busquedas de muchos registros.
+    journalEntry := self readWhere: [ :entry | 
+		                entry vacationLedgerAccountID
+		                = aTPVacationLedgerAccountID ]
 
 +windows + shift + s -> Para recortar imagen de pantalla
 
@@ -180,6 +209,8 @@ aCollection do: [:each | ...]
     >#(1 2 3 4 5 6)
 
 +Para buscar mas hay que ir a la clase SequenceableCollection
+
++arreglo removeFirst    -> Elimina el primer elemento.
 
 
 *******Streams********
@@ -423,3 +454,26 @@ imageMorph := (ZnEasy getJpeg: url) asMorph openInHand.
 
 Para cerrar lla imagen abierta, ejecuta :
 World removeMorph: imageMorph
+
+*********BASURA*********
++TPEmployeeListComponent -> renderEmployeeListOn -> En el boton a deshabilitar.
+"disabled: (self isDisabled: buttonDisabled and: emp);"
+
++TPEmployeeListComponent aqui se crea el mensaje.
+isDisabled: button and: emp
+
+	^ emp employeeRoleInformation dateOfHireIsSet not and: [ button ]
+	
+"beDisabledIf: [ 
+								buttonDisabled and: [ 
+										emp employeeRoleInformation dateOfHireIsSet not ] ];"
+
+
++TPEmployeesVacationListComponent -> editEmployee -> Aqui va el siguiente codigo
+"editEmployee: aTPEmployee
+
+	[ 
+	self call: (TPApplyForVacationEmployeeComponent withEmployee:
+			 (TPEmployeeVacationInformation for: aTPEmployee)) ]
+		on: Error
+		do: [ :ex | self errorMessage: ex messageText ]"

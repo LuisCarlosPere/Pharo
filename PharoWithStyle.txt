@@ -1,0 +1,21 @@
++Primero la palabra que calificatoria.
+
+Prefer
+DateParser
+over
+Not ParserForDate
+or
+Not ParserDate
+
+Prefer
+userAssociation
+(an association of users)
+over
+Not associationUser
+
+
++Sin plurales dentro
+Prefer
+userAssociation
+over
+Not usersAssociation
