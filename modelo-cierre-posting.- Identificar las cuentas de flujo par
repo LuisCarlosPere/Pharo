@@ -1,0 +1,6 @@
+1.- Identificar las cuentas de flujo para hacerles transaccion de cierre.
+    1.1 Transaccion de la cuenta del employee_expense hacia la cuenta de la compania.
+    1.2 Transaccion de la cuenta de centralCostos hacia employee_bonus_expense.
+2.- Identificar las cuentas de liability para hacer el cierre.
+    2.1 IMSS, INFONAVIT se pagan del banco de la compania.
+3.- 

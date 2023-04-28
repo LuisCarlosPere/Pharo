@@ -1,3 +1,13 @@
++Proxy:El proxy es como una copia del objeto de la base de datos. ( Es como una fachada. En caso de solicitarle datos va
+y los consulta a la base de datos y lo regresa.). Si se desea traer ese ojeto tambien hay que usar el mensaje alsoFetch.
+Para comparar si es el objeto que queremos se usa value class.
+
++ double-dispatch: Para ver como funciona:
+    -TPVacationEmployeeLedgerAccount -> createAccountForEmployee aTPEmployee typeAccount: typeAccount 
+    using: aTPApplyForVacationEmployeeComponent.
+    -TPApplyForVacationEmployeeComponent -> createAccountForType: anAccountType.
+    -TPApplyForVacationEmployeeComponent -> setCreatorInAccount: aVacationEmployeeLedgerAccount
+
 +Para entrar a los estilos de lo componentes: TinyPayroll-Components -> Application -> TPFileLibrary
 
 +Para ver modelos de inputs     -> bootstrap4-Core -> subpaquete Canvas.
@@ -11,6 +21,7 @@ exceptionHandler: WADebugErrorHandler.
 +TPDataError -> En esta clase se encuentran los errores de mensajes.
     ^ TPDataError insufficientDays032 signal  -> Esta línea se usa para retornar los errores de mensajes. el signal es lo que lo hace funcionar.
 +TPDemoData install -> Crea una base de datos de prueba
++TPDatabase releaseMode ifFalse:[codigo]
 
 +http://localhost:8080/bootstrap4/browser -> bootstrap4 -> Se usa para ver la libreria que se esta usando.
 
@@ -41,9 +52,12 @@ date2 := Date today.
 	
 	year2 := timeStamp2 year.
 
-+Para hacer un ifTrue con dos condiciones.
++Para hacer un ifTrue con dos condiciones usando and.
     month1 = month2 & (day1 >= day2)
-						ifTrue:[]
+						ifTrue:[].
+
++Para hacer un ifTrue con dos condiciones usando or.
+    month1 = month2 or: [day1 >= day2].
 
 +Con la siguiente sentencia se realiza la busqueda del ultimo registro en una tabla.
     **PARA TRAER EL OBJETO
@@ -344,6 +358,20 @@ aCollection do: [:each | ...]
     -- -> Se usa para un subitem
 
 
+*********Ejemplos *********
++Ejemplo de dictionary 
+    | miDiccionario |
+    miDiccionario := Dictionary new.
+    miDiccionario at: 'clave1' put: 'valor1'.
+    miDiccionario at: 'clave2' put: 'valor2'.
+
+    metodos:
+    existe := miDiccionario includesKey: 'clave1'.
+    valor := miDiccionario at: 'clave1'.
+    miDiccionario removeKey: 'clave1'.
+    miDiccionario keysAndValuesDo: [ :clave :valor |    "procesar clave y valor"].
+
+
 ******Seaside *******
 +Mas documentacion video 55-Seaside: An Innovate Web Application Framework W4-S8-VoiceOverEn-
 +Crear componentes html:
@@ -476,4 +504,22 @@ isDisabled: button and: emp
 	self call: (TPApplyForVacationEmployeeComponent withEmployee:
 			 (TPEmployeeVacationInformation for: aTPEmployee)) ]
 		on: Error
-		do: [ :ex | self errorMessage: ex messageText ]"
+		do: [ :ex | self errorMessage: ex messageText ]".
+
+
++Quitar jQuery para que en un solo clic se llene sin necesidad de dar clic fuera del textnote.
++Al presionar el boton hay que regresar a la pantalla anterior.
+Agregar variable vacationJournalEntries que apunte hacia los journalEntries de esa transaccion.
++Quitar chargedDate al movimiento de agregar o quitar y usar fecha de creacion para el reporte.
+Crear test para verificar las transacciones.
+Antes de hacer posting hay que verificar que los journalEntries esten balanceadas.
+
+Issues
++Al presionar clic en el boton cierre de vacaciones sin haber creado una cuenta en el catalogo manda error.
++Si se intenta crear una nomina sin haber creado nada manda error de companyName nul pero el error no se muestra en la aplicacion.
+El mismo error de arriba lo manda si se intenta entrar a la ventana de nomina sin haber creado nada.
++En agregar compania en varios estados no salen sus municipio, ciudad, colonia y cp.
++Agrega nomina sin empresa.
++Error: Message not understood: TPCCompany >> #registerBaseAcounts -> Este mensaje sale cuando se crea una compania.
++Message not understood: TPCompanyLedgerAccount >> #companyID: -> Cuando se desea agregar una cuenta a una empresa.
++No se puede agregar una cuenta en la compania
