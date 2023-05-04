@@ -1,3 +1,11 @@
+panal-postgres-server.postgres.database.azure.com
+panal_pg_admin
+4yDcnbIPq96U!b6MG0ozt0PgzyILbuWx
+
+https://panal-tp-testing.azurewebsites.net/ -> Pagina para la demo.
+mi correo: luis.perez@crediangel.com
+contrasenia: luis
+
 +Proxy:El proxy es como una copia del objeto de la base de datos. ( Es como una fachada. En caso de solicitarle datos va
 y los consulta a la base de datos y lo regresa.). Si se desea traer ese ojeto tambien hay que usar el mensaje alsoFetch.
 Para comparar si es el objeto que queremos se usa value class.
@@ -58,6 +66,12 @@ date2 := Date today.
 
 +Para hacer un ifTrue con dos condiciones usando or.
     month1 = month2 or: [day1 >= day2].
+
+
+********* BUSQUEDAS EN LA BASE DE DATOS ******
+
++readOneWhere:[:entry | entry name = 'nombre'].
++readWhere:[:entry | entry name like: 'Malk%'].
 
 +Con la siguiente sentencia se realiza la busqueda del ultimo registro en una tabla.
     **PARA TRAER EL OBJETO
@@ -197,6 +211,8 @@ aCollection do: [:each | ...]
 +reverseDo: (Do an action on the collection starting from the end)
 +doWithIndex: (do an action with the element and its index)
 +pairsDo: (evaluate aBlock with my elements taken two at a time.)
++inject: into:[:acumulador :elemento]   -> es un método útil para iterar sobre una colección y acumular un valor a 
+medida que se recorre la colección.
 +with:do: (requires two structures of the same length).
     #(1 2 3)
         with: #(10 20 30)
@@ -371,6 +387,19 @@ aCollection do: [:each | ...]
     miDiccionario removeKey: 'clave1'.
     miDiccionario keysAndValuesDo: [ :clave :valor |    "procesar clave y valor"].
 
++Ejemplo de inject: into:
+    | numeros resultado |
+    numeros := #(1 2 3 4 5).
+    resultado := numeros inject: 0 into: [ :acumulador :elemento | acumulador + elemento ].
+    ^ resultado -> es 15.
+
+
++Ejemplo de includes.
+    miLista := #(2 4 6 8 10).
+    miNumero := 5.
+
+    miLista includes: miNumero. "Devuelve false"
+
 
 ******Seaside *******
 +Mas documentacion video 55-Seaside: An Innovate Web Application Framework W4-S8-VoiceOverEn-
@@ -523,3 +552,59 @@ El mismo error de arriba lo manda si se intenta entrar a la ventana de nomina si
 +Error: Message not understood: TPCCompany >> #registerBaseAcounts -> Este mensaje sale cuando se crea una compania.
 +Message not understood: TPCompanyLedgerAccount >> #companyID: -> Cuando se desea agregar una cuenta a una empresa.
 +No se puede agregar una cuenta en la compania
+
+********ERRORES ENCONTRADOS:*********
+-Error al momento de intentar crear una nomina sin antes haber creado una empresa.
+-Error al momento de intentar crear una nomina con un empleado que tiene SIN marcar la casilla de generar gastos.
+-Error al momento de intentar ver o editar una nomina abierta con un empleado que tenga contribucion al fondo de ahorro.
+-Error al momento de mostrar el descuento de una nomina cuando el empleado tiene descuento de infonavit. Muestra doble el
+monto pero en la base de datos si hace el registro bien. Pasa lo mismo con el descuento pension
+-Cuando se crea la nomina con descuento el journalEntry de la nomina se crea sin el descuento.
+
+
+********DESCUENTOS*****
++Contribucion al fondo de ahorro no funciona
++Descuento de immss es diario
++Descuento de infonavit es por semana
++Descuento de ISR es diario.
++Descuento de pension es semanal.
++Aportaciones sociales es diario y es un gasto para la empresa
+
+**********CURPS***********
++TETT000101HASSSSA4
+test 
+test
+test
+01/01/2000
+masculino
+aguascalientes
+
+
++OOOO000101HASTTTA0
+otro
+otro
+otro
+01/01/2000
+masculino
+aguascalientes
+
+
++PUPP000101HASRRRA3
+prueba
+prueba
+prueba
+01/01/2000
+masculino
+aguascalientes
+
+
+script guardado
+SELECT tptransaction.transaction_id, transaction_type, transaction_tag, tptransaction.amount, days, description
+, tpjournalentry.journal_entry_id, journal_type, account_id, entry_type, tpjournalentry.amount, is_posted, posting_id
+	FROM public.tptransaction 
+	LEFT JOIN tptransaction_on_tpjournalentry ON tptransaction.transaction_id = 
+	tptransaction_on_tpjournalentry.transaction_id
+	LEFT JOIN tpjournalentry ON tptransaction_on_tpjournalentry.journal_entry_id = 
+	tpjournalentry.journal_entry_id
+	WHERE is_posted = false
+	ORDER BY tptransaction.transaction_id
