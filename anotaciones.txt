@@ -1,3 +1,11 @@
++todos los mensajes hacia el usuario son de Usted, y es mejor si son impersonales. "¿Realizar cierre de nomina?"
+
++Cuando currentUser es nil solo hay que llamar en el componente self currentUser.
+
++Para borrar ramas locales:
+    -Iceberg -> En repositories clic derecho sobre tiniPayroll -> open repository -> clic derecho sobre la rama que 
+    se desea borrar. -> Delete branch.
+
 panal-postgres-server.postgres.database.azure.com
 panal_pg_admin
 4yDcnbIPq96U!b6MG0ozt0PgzyILbuWx
@@ -28,6 +36,7 @@ exceptionHandler: WADebugErrorHandler.
 +TPDatabase resetCurrent -> Cuando se borran registros desde Postgres.
 +TPDataError -> En esta clase se encuentran los errores de mensajes.
     ^ TPDataError insufficientDays032 signal  -> Esta línea se usa para retornar los errores de mensajes. el signal es lo que lo hace funcionar.
+    +Ultimo error encontrado employeeWithoutCompany050
 +TPDemoData install -> Crea una base de datos de prueba
 +TPDatabase releaseMode ifFalse:[codigo]
 
@@ -597,6 +606,33 @@ prueba
 masculino
 aguascalientes
 
++DOAC850205HCLSVR04
+cristiano ronaldo
+dos santos
+aveiro
+05/02/1985
+masculino
+coahuila
+cc Torreon
+
++BOBM000101HCCRRRA3
+mario
+bros
+bros
+01/01/2000
+masculino
+campeche
+cc apodaca
+
++COCV000101HCMRRTA3
+vito
+corleone
+corleone
+01/01/2000
+masculino
+colima
+torreon
+
 
 script guardado
 SELECT tptransaction.transaction_id, transaction_type, transaction_tag, tptransaction.amount, days, description
@@ -608,3 +644,8 @@ SELECT tptransaction.transaction_id, transaction_type, transaction_tag, tptransa
 	tpjournalentry.journal_entry_id
 	WHERE is_posted = false
 	ORDER BY tptransaction.transaction_id
+
+
++Mensajes para borrar 
+-TPVacationLedgerAccount -> doCloseOnVacationAccount.
+-TPVacationCompanyLedgerAccount -> findOrCreateVacationCompany
